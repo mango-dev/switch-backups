@@ -26,7 +26,7 @@ class TelnetClient():
         # read_very_eager()获取到的是的是上次获取之后本次获取之前的所有输出
         command_result = self.tn.read_very_eager().decode('ascii')
         if 'Login incorrect' not in command_result:
-            logging.warning('%s登录成功'%host_ip)
+            logging.info('%s登录成功'%host_ip)
             return True
         else:
             logging.warning('%s登录失败，用户名或密码错误'%host_ip)
@@ -40,10 +40,11 @@ class TelnetClient():
         time.sleep(2)
         # 获取命令结果
         read_very=self.tn.read_very_eager()
-        
-        logging.warning('命令执行结果：\n%s' % command_result)
 
         command_result=read_very.decode('ascii')
+        # 打日志
+        # logging.warning('命令执行结果：\n%s' % command_result)
+        
         command_result=command_result.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\n","\n")
 
         
