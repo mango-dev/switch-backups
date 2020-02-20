@@ -1,0 +1,110 @@
+#!/usr/bin/expect
+
+set device1 "192.168.240.20"
+set user1 "admin"  
+set pass1 "admin"
+set ftpuser "administrator"  
+set ftppass "zyx88414499+-517"
+set timeout 60
+
+set device2 "192.168.240.20"
+set user2 "admin"  
+set pass2 "admin"
+
+
+# # telent
+# spawn telnet $device1
+# expect "Username:"
+# send "$user1\n"
+# expect "Password:"
+# send "$pass1\n"
+# #连ftp
+# send "tftp 192.168.240.102"
+# expect "Username:"
+# send "$ftpuser\n"
+# expect "Password:"
+# send "$ftppass\n"
+# expect ">"
+# send "put xieen.cfg device1.cfg \n"
+# expect ">"
+# send "\n"
+# send "exit\n"
+# # telnet end
+
+# # telent
+# spawn telnet $device2
+# expect "Username:"
+# send "$user2\n"
+# expect "Password:"
+# send "$pass2\n"
+# #连ftp
+# send "tftp 192.168.240.102"
+# expect "Username:"
+# send "$ftpuser\n"
+# expect "Password:"
+# send "$ftppass\n"
+# expect ">"
+# send "put xieen.cfg device1.cfg \n"
+# expect ">"
+# send "\n"
+# send "exit\n"
+# # telnet end
+
+exec git add .
+exec git commit -m "自动化备份命令"
+spawn git push
+expect eof
+
+# h3c config backup
+# venmos
+# venmos.com
+# me[at]venmos.com
+
+# set device1 "192.168.1.1"
+# set user user  
+# set pass password
+# set timeout 60
+
+# spawn telnet $device1
+# expect "Username:"
+# send "$user\n"
+# expect "Password:"
+# send "$pass\n"
+
+# expect ">"
+# send "tftp (tftp server ip) put startup.cfg device1.cfg \n"
+# expect ">"
+# send "\n"
+# send "exit\n"
+
+# yum install -y git
+# git clone https://github.com/zh417233956/expect-demo.git
+# yum install -y expect
+# expect push.exp
+
+# git config --global user.name "Your Name"
+# git config --global user.email “email@example.com”
+# git config --global credential.helper store
+
+# spawn git add .
+# expect ">"
+# send "git commit -m 自动化备份命令\n"
+# expect ">"
+# send "git push\n"
+# # send "exit\n"
+
+# exec git add .
+# exec git commit -m "自动化备份命令"
+# spawn git push
+# # expect {
+# # "Password*" {send "password\r\n"}
+# # }
+# expect eof
+
+# 自动拉取代码
+# spawn git pull
+# expect "Username*"
+# send "$user\n"
+# expect "Password*"
+# send "$password\n"
+# expect eof
