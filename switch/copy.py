@@ -8,13 +8,11 @@ import time
 import os
 
 class FileCopy():
-
     def Copy(self):
         # 从配置文件获取交换机列表的服务器信息
         HOSTS=Config().get_conf("HOSTS")
         hosts_str = HOSTS["hosts"]
         hosts_list= json.loads(hosts_str)
-
         # logging.info(hosts_list)
         for host in hosts_list:
             host_ip = host["host"]
@@ -24,7 +22,7 @@ class FileCopy():
             login_type=host["type"]
             if login_type=="telnet":
                 self.telnet(host)
-            elif login_type="ssh":
+            elif login_type=="ssh":
                 self.ssh(host)
                 
     def ssh(self,host):

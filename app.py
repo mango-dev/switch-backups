@@ -11,7 +11,7 @@ if __name__ == '__main__':
         LogConfig(PATH)
         logging.info("脚本初始化完成.")
         # TODO:程序执行入口
-        FileCopy().telnet()
+        FileCopy().Copy()
         logging.info("脚本执行完成.")
         pass
     except Exception as ex:
