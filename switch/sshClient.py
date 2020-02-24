@@ -21,7 +21,7 @@ class SSHClient():
             # 激活terminal   
             self.channel.invoke_shell()
             # 进行一次会话，清除欢迎信息
-            self.send_some_command("display version")
+            self.send_some_command("display clock")
             pass
         except Exception as ex:
             logging.error('%s登录失败，%s'%(host_ip, repr(ex)))
@@ -35,7 +35,7 @@ class SSHClient():
         self.channel.send(command.encode('ascii')+b'\n')       
         time.sleep(2)
         # 获取命令结果
-        command_result=self.channel.recv(65535).decode('ascii')
+        command_result=self.channel.recv(65535).decode('gbk')
         # 打日志
         # logging.warning('命令执行结果：\n%s' % command_result)        
         return command_result

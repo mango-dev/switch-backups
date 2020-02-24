@@ -41,7 +41,7 @@ class TelnetClient():
         # 获取命令结果
         read_very=self.tn.read_very_eager()
 
-        command_result=read_very.decode('ascii')
+        command_result=read_very.decode('gbk')
         # 打日志
         # logging.warning('命令执行结果：\n%s' % command_result)
         return command_result

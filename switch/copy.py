@@ -21,9 +21,21 @@ class FileCopy():
             brand = host["brand"]
             login_type=host["type"]
             if login_type=="telnet":
-                self.telnet(host)
+                try:
+                    self.telnet(host)
+                    pass
+                except Exception as tel_ex:
+                    logging.info("导出失败：%s，消息："% (file_name,repr(tel_ex)))
+                    pass
+                
             elif login_type=="ssh":
-                self.ssh(host)
+                try:
+                    self.ssh(host)
+                    pass
+                except Exception as ssh_ex:
+                    logging.info("导出失败：%s，消息："% (file_name,repr(ssh_ex)))
+                    pass
+                
                 
     def ssh(self,host):
         host_ip = host["host"]
@@ -42,7 +54,7 @@ class FileCopy():
                 while True:
                     for_index+=1
                     config_str_ln= ssh_client.send_some_command(command)
-                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\n","\n")
+                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\r\n","\n").replace("\r\n","\n")
                     if for_index==1:
                         config_str_ln=config_str_ln.replace("dis cu","")
                     if "---- More ----" in config_str_ln:
