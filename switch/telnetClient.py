@@ -15,10 +15,10 @@ class TelnetClient():
             logging.warning('%s网络连接失败'%host_ip)
             return False
         # 等待login出现后输入用户名，最多等待10秒
-        self.tn.read_until(b'login: ',timeout=10)
+        self.tn.read_until(b'login: ',timeout=2)
         self.tn.write(username.encode('ascii') + b'\n')
         # 等待Password出现后输入用户名，最多等待10秒
-        self.tn.read_until(b'Password: ',timeout=10)
+        self.tn.read_until(b'Password: ',timeout=2)
         self.tn.write(password.encode('ascii') + b'\n')
         # 延时两秒再收取返回结果，给服务端足够响应时间
         time.sleep(2)

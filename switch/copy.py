@@ -83,7 +83,7 @@ class FileCopy():
                     config_str_ln= telnet_client.execute_some_command(command)
                     config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\n","\n")
                     if for_index==1:
-                        config_str_ln=config_str_ln.replace("dis cu","")
+                        config_str_ln=config_str_ln.replace(command,"")
                     if "---- More ----" in config_str_ln:
                         command=" "
                         config_str_ln=config_str_ln.replace("---- More ----","")
@@ -94,6 +94,27 @@ class FileCopy():
                         break
                 config_str=config_str.replace("<H3C>\n","").replace("<H3C>","")
                 pass
+            elif brand=="ruijie":
+                command="show run"
+                # 输入命令拉取
+                for_index=0
+                while True:
+                    for_index+=1
+                    config_str_ln= telnet_client.execute_some_command(command)
+                    config_str_ln=config_str_ln.replace("\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08          ","").replace("\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08","").replace("\r\n","\n")
+                    if for_index==1:
+                        config_str_ln=config_str_ln.replace(command,"")
+                    if " --More-- " in config_str_ln:
+                        command=" "
+                        config_str_ln=config_str_ln.replace(" --More-- ","")
+                        config_str+=config_str_ln
+                    else:
+                        config_str_ln=config_str_ln.replace("return\n","return")
+                        config_str+=config_str_ln
+                        break
+                config_str=config_str.replace("Ruijie#\n","").replace("Ruijie#","")
+                pass
+
             # 退出
             telnet_client.logout_host()
             # 写入文件                
