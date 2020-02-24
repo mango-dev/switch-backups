@@ -8,6 +8,7 @@
 >交换机备份，在备份路径下生成yyyy-MM-dd的文件夹，然后按照host的IP生成192.168.3.*.cfg文件
 ### 查看当前配置
 H3C：display currentconfig 简写dis cu，翻页输入:空格
+ruijie：show run，翻页输入:空格
 
 >### 依赖包
 telnet：import telnetlib(系统包)
@@ -17,7 +18,9 @@ ssh:import paramiko(第三方包)
 >安装如下：
 pip install virtualenv
 virtualenv venv
-. venv/bin/activate / windows下 使用 venv\Scripts\activate 关闭：deactivate
+linux下使用沙箱：. venv/bin/activate /
+windows下使用沙箱：venv\Scripts\activate 
+关闭沙箱：deactivate
 
 # pip包管理
 >安装requirements.txt依赖
@@ -32,7 +35,7 @@ pip install -r requirements.txt
 >在configs\config.ini下
 [HOSTS]
 **switch hosts信息**
-***brand:H3C***
+***brand:H3C/ruijie***
 ***type:telnet/ssh***
 hosts = [{"name": "192.168.3.*","host":"192.168.3.*","brand":"H3C","type": "telnet","user":"xxx","pwd":"xxx"}]
 [DIR]
