@@ -44,10 +44,6 @@ class TelnetClient():
         command_result=read_very.decode('ascii')
         # 打日志
         # logging.warning('命令执行结果：\n%s' % command_result)
-        
-        command_result=command_result.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\n","\n")
-
-        
         return command_result
 
     # 退出telnet

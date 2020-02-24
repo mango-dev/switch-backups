@@ -30,9 +30,9 @@ class FileCopy():
         username = host["user"]
         password = host["pwd"]
         brand = host["brand"]
-        # TODO:待完善SSH
+        # SSH
         ssh_client=SSHClient()
-        if ssh_client.login_host(host_ip,username,password):
+        if ssh_client.login_transport(host_ip,username,password):
             # 拉取配置
             config_str=""
             if brand=="H3C":
@@ -41,7 +41,8 @@ class FileCopy():
                 for_index=0
                 while True:
                     for_index+=1
-                    config_str_ln= ssh_client.execute_some_command(command)
+                    config_str_ln= ssh_client.send_some_command(command)
+                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\n","\n")
                     if for_index==1:
                         config_str_ln=config_str_ln.replace("dis cu","")
                     if "---- More ----" in config_str_ln:
@@ -55,7 +56,7 @@ class FileCopy():
                 config_str=config_str.replace("<H3C>\n","").replace("<H3C>","")
                 pass
             # 退出
-            ssh_client.logout_host()
+            ssh_client.logout_transport()
             # 写入文件                
             self.write_file(host_ip,config_str)
             pass
@@ -67,6 +68,7 @@ class FileCopy():
         username = host["user"]
         password = host["pwd"]
         brand = host["brand"]
+        # telnet
         telnet_client = TelnetClient()
         # 如果登录结果返加True，则执行命令，然后退出
         if telnet_client.login_host(host_ip,username,password):
@@ -79,6 +81,7 @@ class FileCopy():
                 while True:
                     for_index+=1
                     config_str_ln= telnet_client.execute_some_command(command)
+                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\n","\n")
                     if for_index==1:
                         config_str_ln=config_str_ln.replace("dis cu","")
                     if "---- More ----" in config_str_ln:
