@@ -35,7 +35,8 @@ class SSHClient():
         self.channel.send(command.encode('ascii')+b'\n')       
         time.sleep(2)
         # 获取命令结果
-        command_result=self.channel.recv(65535).decode('gbk')
+        read_recv=self.channel.recv(65535)
+        command_result=read_recv.decode('gbk')
         # 打日志
         # logging.warning('命令执行结果：\n%s' % command_result)        
         return command_result

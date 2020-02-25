@@ -54,7 +54,7 @@ class FileCopy():
                 while True:
                     for_index+=1
                     config_str_ln= ssh_client.send_some_command(command)
-                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\r\n","\n").replace("\r\n","\n")
+                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\r\n","\n").replace("\r\r               \r","").replace("\r\n","\n")
                     if for_index==1:
                         config_str_ln=config_str_ln.replace("dis cu","")
                     if "---- More ----" in config_str_ln:
