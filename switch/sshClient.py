@@ -15,7 +15,7 @@ class SSHClient():
             # 连接成功后打开一个channel
             self.channel=self.transport.open_session()
             # 设置会话超时时间
-            self.channel.settimeout(60)
+            self.channel.settimeout(600)
             # 打开远程的terminal
             self.channel.get_pty()
             # 激活terminal   
