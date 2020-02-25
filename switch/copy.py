@@ -25,7 +25,7 @@ class FileCopy():
                     self.telnet(host)
                     pass
                 except Exception as tel_ex:
-                    logging.info("导出失败：%s，消息："% (file_name,repr(tel_ex)))
+                    logging.info("导出失败：%s，消息：%s"% (host_ip,repr(tel_ex)))
                     pass
                 
             elif login_type=="ssh":
@@ -33,7 +33,7 @@ class FileCopy():
                     self.ssh(host)
                     pass
                 except Exception as ssh_ex:
-                    logging.info("导出失败：%s，消息："% (file_name,repr(ssh_ex)))
+                    logging.info("导出失败：%s，消息：%s"% (host_ip,repr(ssh_ex)))
                     pass
                 
                 
@@ -54,12 +54,12 @@ class FileCopy():
                 while True:
                     for_index+=1
                     config_str_ln= ssh_client.send_some_command(command)
-                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\r\n","\n").replace("\r\r               \r","").replace("\r\n","\n")
+                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D","").replace("\r\r\n","\n").replace("\r\r               \r","").replace("\r\n","\n")
                     if for_index==1:
-                        config_str_ln=config_str_ln.replace("dis cu","")
+                        config_str_ln=config_str_ln.replace(command,"")
                     if "---- More ----" in config_str_ln:
                         command=" "
-                        config_str_ln=config_str_ln.replace("---- More ----","")
+                        config_str_ln=config_str_ln.replace("  ---- More ----","").replace("---- More ----","")
                         config_str+=config_str_ln
                     else:
                         config_str_ln=config_str_ln.replace("return\n","return")
@@ -93,12 +93,12 @@ class FileCopy():
                 while True:
                     for_index+=1
                     config_str_ln= telnet_client.execute_some_command(command)
-                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D ","").replace("\x1b[16D                \x1b[16D","").replace("\r\n","\n")
+                    config_str_ln=config_str_ln.replace("\x1b[16D                \x1b[16D","").replace("\r\r\n","\n").replace("\r\r               \r","").replace("\r\n","\n")
                     if for_index==1:
                         config_str_ln=config_str_ln.replace(command,"")
                     if "---- More ----" in config_str_ln:
                         command=" "
-                        config_str_ln=config_str_ln.replace("---- More ----","")
+                        config_str_ln=config_str_ln.replace("  ---- More ----","").replace("---- More ----","")
                         config_str+=config_str_ln
                     else:
                         config_str_ln=config_str_ln.replace("return\n","return")
