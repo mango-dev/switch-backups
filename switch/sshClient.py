@@ -33,7 +33,7 @@ class SSHClient():
     def send_some_command(self,command):
         logging.info("执行命令：%s" % command)
         self.channel.send(command.encode('ascii')+b'\n')       
-        time.sleep(2)
+        time.sleep(4)
         # 获取命令结果
         read_recv=self.channel.recv(65535)
         command_result=read_recv.decode('gbk')
