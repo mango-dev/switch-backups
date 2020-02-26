@@ -6,6 +6,7 @@ from utils.mkDir import mk_dir
 import json
 import time
 import os
+import re
 
 class FileCopy():
     def Copy(self):
@@ -65,7 +66,8 @@ class FileCopy():
                         config_str_ln=config_str_ln.replace("return\n","return")
                         config_str+=config_str_ln
                         break
-                config_str=config_str.replace("<H3C>\n","").replace("<H3C>","")
+                # config_str=config_str.replace("<H3C>\n","").replace("<H3C>","")
+                config_str=self.reg_replace_h3c(config_str)
                 pass
             # 退出
             ssh_client.logout_transport()
@@ -104,7 +106,8 @@ class FileCopy():
                         config_str_ln=config_str_ln.replace("return\n","return")
                         config_str+=config_str_ln
                         break
-                config_str=config_str.replace("<H3C>\n","").replace("<H3C>","")
+                # config_str=config_str.replace("<H3C>\n","").replace("<H3C>","")
+                config_str=self.reg_replace_h3c(config_str)
                 pass
             elif brand=="ruijie":
                 command="show run"
@@ -133,6 +136,14 @@ class FileCopy():
             self.write_file(host_ip,config_str)
             pass
         pass
+
+    def reg_replace_h3c(self,test_str):
+        regex = r"<.*H3C>\n"
+        result= re.sub(regex, "", test_str, count=0, flags=0)
+        regex = r"<.*H3C>"
+        result= re.sub(regex, "", result, count=0, flags=0)
+        return result
+
 
     def write_file(self,host,content):
         REPDIR=Config().get_conf("DIR")
