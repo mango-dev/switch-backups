@@ -138,9 +138,9 @@ class FileCopy():
         pass
 
     def reg_replace_h3c(self,test_str):
-        regex = r"<.*H3C>\n"
+        regex = r"<.*H3C>\n|<WiNet.*>\n"
         result= re.sub(regex, "", test_str, count=0, flags=0)
-        regex = r"<.*H3C>"
+        regex = r"<.*H3C>|<WiNet.*>"
         result= re.sub(regex, "", result, count=0, flags=0)
         return result
 
