@@ -10,6 +10,8 @@ import re
 
 class FileCopy():
     def Copy(self):
+        '''交换机备份入口函数，实现配置文件中主机列表的遍历备份操作
+        '''
         # 从配置文件获取交换机列表的服务器信息
         HOSTS=Config().get_conf("HOSTS")
         hosts_str = HOSTS["hosts"]
@@ -136,11 +138,40 @@ class FileCopy():
             self.write_file(host_ip,config_str)
             pass
         pass
+    
+    
+    def get_h3c_name(self,test_str):        
+        '''提取H3C中输出的提示设备名.'''
+        result=""
+        # coding=utf8
+        # the above tag defines encoding for this document and is for Python 2.x compatibility
+        regex = r"return<(.*)>"
+
+        matches = re.finditer(regex, test_str, re.MULTILINE)
+
+        for matchNum, match in enumerate(matches, start=1):
+            
+            # print ("Match {matchNum} was found at {start}-{end}: {match}".format(matchNum = matchNum, start = match.start(), end = match.end(), match = match.group()))
+            
+            for groupNum in range(0, len(match.groups())):
+                groupNum = groupNum + 1
+                
+                # print ("Group {groupNum} found at {start}-{end}: {group}".format(groupNum = groupNum, start = match.start(groupNum), end = match.end(groupNum), group = match.group(groupNum)))
+                result=match.group(groupNum)
+                break
+            pass
+        return result
+
+
+        # Note: for Python 2.7 compatibility, use ur"" to prefix the regex and u"" to prefix the test string and substitution.
 
     def reg_replace_h3c(self,test_str):
-        regex = r"<.*H3C>\n|<WiNet.*>\n"
+        '''替换H3C中输出的提示设备名.
+        '''
+        h3c_name=self.get_h3c_name(test_str)
+        regex = r"<"+h3c_name+">\n"
         result= re.sub(regex, "", test_str, count=0, flags=0)
-        regex = r"<.*H3C>|<WiNet.*>"
+        regex = r"<"+h3c_name+">"
         result= re.sub(regex, "", result, count=0, flags=0)
         return result
 
