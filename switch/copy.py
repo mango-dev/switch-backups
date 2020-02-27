@@ -171,7 +171,7 @@ class FileCopy():
         h3c_name=self.get_h3c_name(test_str)
         regex = r"<"+h3c_name+">\n"
         result= re.sub(regex, "", test_str, count=0, flags=0)
-        regex = r"<"+h3c_name+">"
+        regex = r"<"+h3c_name+">|<H3C>"
         result= re.sub(regex, "", result, count=0, flags=0)
         return result
 
